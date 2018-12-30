@@ -82,7 +82,7 @@
               <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
             </a>
             <h2>
-              <a class="layui-badge">分享</a>
+              <a class="layui-badge">{{item.type}}</a>
               <a href="jie/detail.html">{{item.title}}</a>
             </h2>
             <div class="fly-list-info">
@@ -209,7 +209,7 @@ layui.config({
         el: '#app',
         data: {
             topicList: [{
-                title:'测试数据',updateTime:'2018-08-09 23:12:15'
+                title:'测试数据',updateTime:'2018-08-09 23:12:15',type:'baomu'
             }]
         }
     })
