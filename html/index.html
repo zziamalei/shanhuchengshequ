@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="../res/css/global.css">
 </head>
 <body>
-
+<div id="app">
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
     <a class="fly-logo" href="/">
@@ -77,13 +77,13 @@
 
 
         <ul class="fly-list">          
-          <li>
+          <li  v-for="item in topicList">
             <a href="user/home.html" class="fly-avatar">
               <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
             </a>
             <h2>
               <a class="layui-badge">分享</a>
-              <a href="jie/detail.html">基于 layui 的极简社区页面模版</a>
+              <a href="jie/detail.html">{{item.title}}</a>
             </h2>
             <div class="fly-list-info">
               <a href="user/home.html" link>
@@ -95,17 +95,17 @@
               </a>
               <span>刚刚</span>
               
-              <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i class="iconfont icon-kiss"></i> 60</span>
+              <span class="fly-list-kiss layui-hide-xs" title="阅读数"><i class="iconfont icon-kiss"></i> 60</span>
               <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
               <span class="fly-list-nums"> 
-                <i class="iconfont icon-pinglun1" title="回答"></i> 66
+                <i class="iconfont icon-pinglun1" title="评论数"></i> 66
               </span>
             </div>
             <div class="fly-list-badge">
               <!--<span class="layui-badge layui-bg-red">精帖</span>-->
             </div>
           </li>
-          <li>
+          <li style="display: none">
             <a href="user/home.html" class="fly-avatar">
               <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
             </a>
@@ -179,7 +179,7 @@
   <p><a href="http://topic.shanhucheng.cn/" target="_blank">山湖城社区</a> 2019 &copy; <a href="http://www.shanhucheng.cn/" target="_blank">shanhucheng.cn 出品</a></p>
 
 </div>
- 
+</div>
 <script src="../res/layui/layui.js"></script>
 <script>
 layui.cache.page = '';
@@ -198,7 +198,22 @@ layui.config({
 }).use('fly');
 </script>
 
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 生产环境版本，优化了尺寸和速度 -->
+<!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
+
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            topicList: [{
+                title:'测试数据',updateTime:'2018-08-09 23:12:15'
+            }]
+        }
+    })
+
+</script>
 </body>
 </html>
