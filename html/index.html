@@ -16,8 +16,7 @@
 <div class="fly-header layui-bg-black">
   <div class="layui-container">
     <a class="fly-logo" href="/">
-     <!-- <img src="../res/images/logo.png" alt="layui">-->
-      <span class="layui-bg-green">山湖城社区</span>
+      <img src="../res/images/logo.png">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs" style="display: none">
       <li class="layui-nav-item layui-this">
@@ -73,13 +72,44 @@
     <div class="layui-col-md8">
 
       <div class="fly-panel" style="margin-bottom: 0;">
-        
 
 
-        <ul class="fly-list">          
+        <ul class="fly-list">
+
+          <li>
+            <a href="user/home.html" class="fly-avatar">
+              <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546167126015&di=5a94b6e03bd95f9f9e7762115b87d3e4&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F67%2F59%2F63%2F58e89bee922a2.png">
+            </a>
+            <h2>
+              <a class="layui-badge">公告</a>
+              <a href="jie/gonggao.html">关于山湖城网络社区的公告，请认真阅读</a>
+            </h2>
+            <div class="fly-list-info">
+              <a href="user/home.html" link>
+                <cite>管理员</cite>
+                <!--
+                <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
+                <i class="layui-badge fly-badge-vip">VIP3</i>
+                -->
+              </a>
+              <span>2019-01-01</span>
+
+
+            </div>
+            <div class="fly-list-badge">
+              <!--
+              <span class="layui-badge layui-bg-black">置顶</span>
+              <span class="layui-badge layui-bg-red">精帖</span>
+              -->
+            </div>
+
+          </li>
+
+
+          <hr class="layui-bg-orange">
           <li  v-for="item in topicList">
             <a href="user/home.html" class="fly-avatar">
-              <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" alt="贤心">
+              <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546167126015&di=5a94b6e03bd95f9f9e7762115b87d3e4&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F67%2F59%2F63%2F58e89bee922a2.png">
             </a>
             <h2>
               <a class="layui-badge">{{item.type}}</a>

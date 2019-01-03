@@ -1,0 +1,128 @@
+ 
+ 
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>公告</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="fly,layui,前端社区">
+  <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
+  <link rel="stylesheet" href="../../res/layui/css/layui.css">
+  <link rel="stylesheet" href="../../res/css/global.css">
+</head>
+<body>
+
+<div class="fly-header layui-bg-black">
+  <div class="layui-container">
+    <a class="fly-logo" href="../index.html">
+      <img src="../../res/images/logo.png">
+    </a>
+
+    
+    <ul class="layui-nav fly-nav-user">
+      
+      <!-- 未登入的状态 -->
+      <!--
+      <li class="layui-nav-item">
+        <a class="iconfont icon-touxiang layui-hide-xs" href="user/login.html"></a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="user/login.html">登入</a>
+      </li>
+      <li class="layui-nav-item">
+        <a href="user/reg.html">注册</a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs">
+        <a href="/app/qq/" onclick="layer.msg('正在通过QQ登入', {icon:16, shade: 0.1, time:0})" title="QQ登入" class="iconfont icon-qq"></a>
+      </li>
+      <li class="layui-nav-item layui-hide-xs">
+        <a href="/app/weibo/" onclick="layer.msg('正在通过微博登入', {icon:16, shade: 0.1, time:0})" title="微博登入" class="iconfont icon-weibo"></a>
+      </li>
+       -->
+      
+      <!-- 登入后的状态 -->
+
+    </ul>
+  </div>
+</div>
+
+
+<div class="layui-container">
+  <div class="layui-row layui-col-space15">
+    <div class="layui-col-md8 content detail">
+      <div class="fly-panel detail-box">
+        <h1>关于山湖城网络社区的公告与须知</h1>
+
+        <div class="detail-about">
+          <a class="fly-avatar" href="../user/home.html">
+            <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546167126015&di=5a94b6e03bd95f9f9e7762115b87d3e4&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F67%2F59%2F63%2F58e89bee922a2.png">
+          </a>
+          <div class="fly-detail-user">
+            <a href="../user/home.html" class="fly-link">
+              <cite>管理员</cite>
+
+            </a>
+            <span>2019-01-01</span>
+          </div>
+
+        </div>
+        <div class="detail-body photos">
+          <p>
+          <p>  1、该站点由山湖城热心居民友情提供，旨在为大家提供一个分享资源的平台，邻居们可以把自己使用过的优质服务资源（包括但不限于家装、家政等）在本平台分享；或者有这方面的需求，也可以在本平台发帖提问。</p>
+          <p>  2、由于资金限制，目前暂无法对发帖的邻居进行有效认证，故不保证在本站点发布的信息100%准确无误，至于信息的真假烦请邻居自行甄别，对此造成的不便，深表歉意。</br></p>
+          <p>  3、为了保证分享资源的真实性，在发帖时房号是必选项，如果您担心个人房屋信息泄露，请勿发帖。</p>
+          <p>  4、请邻居理性发帖，遵守中国法律法规，勿在本站点发布中国法律不允许的内容（包括但不限于攻击性言论、反动性言论、煽动性言论、侮辱谩骂性言论），由此产生的一切法律后果由发帖人负责！！！
+                  本站点在发现以上不适宜内容时会第一时间删除，欢迎广大邻居举报监督，共同维护一个干净的网络社区。举报邮箱：shanhucheng@gmail.com</p>
+
+
+          </p>
+          <p>2019-01-02</p>
+
+          
+
+          <p>
+            <img src="https://i.loli.net/2018/11/10/5be6e4c85b068.jpg" alt="最美山湖">
+          </p>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<script src="../../res/layui/layui.js"></script>
+<script>
+layui.cache.page = 'jie';
+layui.cache.user = {
+  username: '游客'
+  ,uid: -1
+  ,avatar: '../../res/images/avatar/00.jpg'
+  ,experience: 83
+  ,sex: '男'
+};
+layui.config({
+  version: "3.0.0"
+  ,base: '../../res/mods/'
+}).extend({
+  fly: 'index'
+}).use(['fly', 'face'], function(){
+  var $ = layui.$
+  ,fly = layui.fly;
+  //如果你是采用模版自带的编辑器，你需要开启以下语句来解析。
+  /*
+  $('.detail-body').each(function(){
+    var othis = $(this), html = othis.html();
+    othis.html(fly.content(html));
+  });
+  */
+});
+
+</script>
+
+</body>
+</html>
