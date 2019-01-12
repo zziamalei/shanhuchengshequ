@@ -112,24 +112,24 @@
               <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546167126015&di=5a94b6e03bd95f9f9e7762115b87d3e4&imgtype=0&src=http%3A%2F%2Fpic.90sjimg.com%2Fdesign%2F00%2F67%2F59%2F63%2F58e89bee922a2.png">
             </a>
             <h2>
-              <a class="layui-badge">{{item.type}}</a>
+              <a class="layui-badge">{{item.tag}}</a>
               <a href="jie/detail.html">{{item.title}}</a>
             </h2>
             <div class="fly-list-info">
               <a href="user/home.html" link>
-                <cite>贤心</cite>
+                <cite>热心邻居</cite>
                 <!--
                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                 <i class="layui-badge fly-badge-vip">VIP3</i>
                 -->
               </a>
-              <span>刚刚</span>
+              <span>{{item.createTime}}</span>
               
-              <span class="fly-list-kiss layui-hide-xs" title="阅读数"><i class="iconfont icon-kiss"></i> 60</span>
+             <!-- <span class="fly-list-kiss layui-hide-xs" title="阅读数"><i class="iconfont icon-kiss"></i> 60</span>-->
               <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
-              <span class="fly-list-nums"> 
+             <!-- <span class="fly-list-nums">
                 <i class="iconfont icon-pinglun1" title="评论数"></i> 66
-              </span>
+              </span>-->
             </div>
             <div class="fly-list-badge">
               <!--<span class="layui-badge layui-bg-red">精帖</span>-->
@@ -234,16 +234,48 @@ layui.config({
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
 
+<script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
 <script>
     var app = new Vue({
         el: '#app',
         data: {
-            topicList: [{
-                title:'测试数据',updateTime:'2018-08-09 23:12:15',type:'baomu'
-            }]
+            topicList: []
         }
     })
 
+
+    layui.use(['jquery'], function(){
+        var $ = layui.jquery;
+
+        $.ajax({
+            url: "http://localhost:8888/info/pageList",
+            type:'post',
+            contentType:'application/json',
+            data:JSON.stringify({
+                "page": 1,
+                "query": {
+                    "type": "ask"
+                },
+                "size": 20
+            }),
+            cache: false,
+            success: function(response){
+                if(response.data.content.length>0){
+                    $(response.data.content).each(function (index,e) {
+                        console.log(JSON.stringify(e));
+                        app.topicList.push(e);
+                    });
+
+                }
+
+            }
+        });
+    });
+
+
+
 </script>
+
+
 </body>
 </html>

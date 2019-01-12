@@ -156,11 +156,12 @@ layui.define(['layer', 'laytpl', 'form', 'element', 'upload', 'util'], function(
               //执行上传实例
               upload.render({
                 elem: '#uploadImg'
-                ,url: '/api/upload/'
-                ,size: 200
+                ,url: 'https://sm.ms/api/upload?inajax=1&ssl=1'
+                  ,field:'smfile'
+                ,size: 20000
                 ,done: function(res){
-                  if(res.status == 0){
-                    image.val(res.url);
+                  if(res.code == 'success'){
+                    image.val(res.data.url);
                   } else {
                     layer.msg(res.msg, {icon: 5});
                   }
