@@ -154,7 +154,9 @@
 
               <div class="layui-form-item layui-form-text">
                 <div class="layui-input-block">
-                  <textarea id="L_content" v-model="formData.communityInfo.content"   required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+                 <!-- <textarea id="L_content" v-model="formData.communityInfo.content"   required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
+-->
+                  <textarea id="demo" style="display: none;"></textarea>
                 </div>
               </div>
 
@@ -216,9 +218,21 @@
                         vm.tagList.push(e);
                     });
 
-                    layui.use(['form'], function(){
-                        let form = layui.form
+                    layui.use(['form','layedit'], function(){
 
+                        let form = layui.form;
+                        let layedit = layui.layedit;
+
+                        // layedit.set({
+                        //     uploadImage: {
+                        //         url: 'https://sm.ms/api/upload?inajax=1&ssl=1' //接口url
+                        //         ,type: '' //默认post
+                        //         ,field:'smfile'
+                        //         ,size: 20000
+                        //     }
+                        // });
+
+                        layedit.build('demo',{ tool: ['left', 'center', 'right', '|', 'face']}); //建立编辑器
                         form.on('select(type)', function(data){  vm.formData.communityInfo.type=data.value;});
                         form.on('select(tagType)', function(data){  vm.formData.communityInfo.tagType=data.value;});
                         form.on('select(building)', function(data){  vm.formData.building=data.value;});
