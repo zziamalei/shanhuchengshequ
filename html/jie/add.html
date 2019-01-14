@@ -3,10 +3,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>发表问题 编辑问题 公用</title>
+  <title>发帖-山湖城社区</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="fly,layui,前端社区">
-  <meta name="description" content="Fly社区是模块化前端UI框架Layui的官网社区，致力于为web开发提供强劲动力">
+    <meta name="keywords" content="山湖城,东莞,大岭山,同沙生态公园">
+    <meta name="description" content="和谐社区，你我共建">
   <link rel="stylesheet" href="../../res/layui/css/layui.css">
   <link rel="stylesheet" href="../../res/css/global.css">
 </head>
@@ -14,19 +14,11 @@
 <div id="app">
 <div class="fly-header layui-bg-black" >
   <div class="layui-container">
-    <a class="fly-logo" href="/">
+    <a class="fly-logo" href="../index.html">
       <img src="../../res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
-      <li class="layui-nav-item layui-this">
-        <a href="/"><i class="iconfont icon-jiaoliu"></i>交流</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="../case/case.html"><i class="iconfont icon-iconmingxinganli"></i>案例</a>
-      </li>
-      <li class="layui-nav-item">
-        <a href="http://www.layui.com/" target="_blank"><i class="iconfont icon-ui"></i>框架</a>
-      </li>
+
     </ul>
     
     <ul class="layui-nav fly-nav-user">
@@ -51,21 +43,7 @@
        -->
       
       <!-- 登入后的状态 -->
-      <li class="layui-nav-item">
-        <a class="fly-nav-avatar" href="javascript:;">
-          <cite class="layui-hide-xs">贤心</cite>
-          <i class="iconfont icon-renzheng layui-hide-xs" title="认证信息：layui 作者"></i>
-          <i class="layui-badge fly-badge-vip layui-hide-xs">VIP3</i>
-          <img src="https://tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg">
-        </a>
-        <dl class="layui-nav-child">
-          <dd><a href="../user/set.html"><i class="layui-icon">&#xe620;</i>基本设置</a></dd>
-          <dd><a href="../user/message.html"><i class="iconfont icon-tongzhi" style="top: 4px;"></i>我的消息</a></dd>
-          <dd><a href="../user/home.html"><i class="layui-icon" style="margin-left: 2px; font-size: 22px;">&#xe68e;</i>我的主页</a></dd>
-          <hr style="margin: 5px 0;">
-          <dd><a href="" style="text-align: center;">退出</a></dd>
-        </dl>
-      </li>
+
     </ul>
   </div>
 </div>
@@ -156,15 +134,28 @@
                 <div class="layui-input-block">
                  <!-- <textarea id="L_content" v-model="formData.communityInfo.content"   required lay-verify="required" placeholder="详细描述" class="layui-textarea fly-editor" style="height: 260px;"></textarea>
 -->
-                  <textarea id="demo" style="display: none;"></textarea>
+                  <textarea id="demo"  v-model="formData.communityInfo.content"  style="display: none;"></textarea>
                 </div>
               </div>
+                <div class="layui-form-item layui-form-text">
+                    <div class="layui-input-block">
+                    <img v-bind:src="img.content" v-for="img in formData.picList" style="width: 30%">
+                        <span type="button" class="layui-btn " id="test1">
+                        <i class="layui-icon">&#xe67c;</i>上传图片
+                    </span>
+                    </div>
 
+
+                </div>
 
               <div class="layui-form-item">
                 <button class="layui-btn" lay-filter="demo1" lay-submit>立即发布</button>
               </div>
             </form>
+
+
+
+
           </div>
         </div>
       </div>
@@ -196,7 +187,8 @@
             topicList: [],
             tagList:[],
             buildingInfo:{},
-            formData:{communityInfo:{}}
+            formData:{communityInfo:{}, picList:[]},
+
         }
     })
 
@@ -204,6 +196,7 @@
     layui.use(['jquery'], function(){
         let   $= layui.jquery;
 
+        $('#fixBar01').hide();
 
 
         $.ajax({
@@ -218,21 +211,37 @@
                         vm.tagList.push(e);
                     });
 
-                    layui.use(['form','layedit'], function(){
+                    layui.use(['upload','form','layedit'], function(){
 
                         let form = layui.form;
                         let layedit = layui.layedit;
+                        let upload = layui.upload;
 
-                        // layedit.set({
-                        //     uploadImage: {
-                        //         url: 'https://sm.ms/api/upload?inajax=1&ssl=1' //接口url
-                        //         ,type: '' //默认post
-                        //         ,field:'smfile'
-                        //         ,size: 20000
-                        //     }
-                        // });
 
-                        layedit.build('demo',{ tool: ['left', 'center', 'right', '|', 'face']}); //建立编辑器
+                        //执行实例
+                        var uploadInst = upload.render({
+                            elem: '#test1' //绑定元素
+                            ,url: 'https://sm.ms/api/upload?inajax=1&ssl=1' //上传接口
+                            ,field:'smfile'
+                            ,size: 20000
+                            ,type:'post'
+                            ,done: function(res){
+                                //上传完毕回调
+                                console.log(JSON.stringify(res));
+                                if(res.code=='success'){
+                                    vm.formData.picList.push({content:res.data.url})
+                                }
+                            }
+                            ,error: function(){
+                                //请求异常回调
+                            }
+                        });
+
+                       let editIndex= layedit.build('demo',{ tool: ['left', 'center', 'right', '|', 'face']}); //建立编辑器
+
+
+
+
                         form.on('select(type)', function(data){  vm.formData.communityInfo.type=data.value;});
                         form.on('select(tagType)', function(data){  vm.formData.communityInfo.tagType=data.value;});
                         form.on('select(building)', function(data){  vm.formData.building=data.value;});
@@ -247,6 +256,8 @@
                             // layer.alert(JSON.stringify(data.field), {
                             //     title: '最终的提交信息'
                             // });
+
+                            vm.formData.communityInfo.content= layedit.getContent(editIndex);
                             console.log(JSON.stringify(vm.formData));
 
                             $.ajax({
@@ -256,6 +267,10 @@
                                 contentType: "application/json; charset=utf-8",
                                 cache: false,
                                 success: function(response){
+
+                                    if(response.code==0){
+                                        window.location.href='../index.html';
+                                    }
 
                                 }
                             });

@@ -46,9 +46,9 @@
 <div class="fly-panel fly-column">
   <div class="layui-container">
     <ul class="layui-clear">
-      <li class="layui-hide-xs layui-this"><a href="/">首页</a></li>
-      <li><a href="jie/index.html">分享<span class="layui-badge-dot"></span></a></li>
-      <li><a href="jie/index.html">提问</a></li>
+      <li ><a href="javaScript:getPageList(1,null)">全部<span class="layui-badge-dot" v-if="type==null"></span></a></li>
+      <li><a href="javaScript:getPageList(1,'share')">分享<span class="layui-badge-dot" v-if="type=='share'"></span></a></li>
+      <li><a href="javaScript:getPageList(1,'ask')">提问<span class="layui-badge-dot" v-if="type=='ask'"></span></a></li>
 
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><span class="fly-mid"></span></li> 
       
@@ -57,11 +57,11 @@
       <li class="layui-hide-xs layui-hide-sm layui-show-md-inline-block"><a href="user/index.html#collection">我收藏的贴</a></li> -->
     </ul> 
     
-    <div class="fly-column-right layui-hide-xs"> 
-      <span class="fly-search"><i class="layui-icon"></i></span> 
+    <div class="fly-column-right layui-hide-xs">
+   <!--   <span class="fly-search"><i class="layui-icon"></i></span> -->
       <a href="jie/add.html" class="layui-btn">发表新帖</a> 
     </div> 
-    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;"> 
+    <div class="layui-hide-sm layui-show-xs-block" style="margin-top: -10px; padding-bottom: 10px; text-align: center;">
       <a href="jie/add.html" class="layui-btn">发表新帖</a> 
     </div> 
   </div>
@@ -166,7 +166,8 @@
         </ul>
         <div style="text-align: center">
           <div class="laypage-main">
-            <a href="jie/index.html" class="laypage-next">更多求解</a>
+            <a href="javaScript:getMorePageList()" class="laypage-next" v-if="totalPages>page" >更多求解</a>
+            <span v-if="totalPages<=page">到底了</span>
           </div>
         </div>
 
@@ -239,24 +240,41 @@ layui.config({
     var app = new Vue({
         el: '#app',
         data: {
-            topicList: []
+            topicList: [],
+            type:'',
+            page:1,
+            totalPages:0
         }
     })
 
-
+    let $;
     layui.use(['jquery'], function(){
-        var $ = layui.jquery;
+         $ = layui.jquery;
+        getPageList(1,null);
+    });
 
+    function getMorePageList() {
+        getPageList(app.page+1,app.type);
+    }
+
+
+    function getPageList(page ,type) {
+        app.page=page;
+        app.type=type;
+
+        if(app.page==1){
+            app.topicList=[];
+        }
         $.ajax({
             url: "http://localhost:8888/info/pageList",
             type:'post',
             contentType:'application/json',
             data:JSON.stringify({
-                "page": 1,
+                "page": app.page,
                 "query": {
-                    "type": "ask"
+                    "type": app.type
                 },
-                "size": 20
+                "size": 10
             }),
             cache: false,
             success: function(response){
@@ -268,11 +286,11 @@ layui.config({
 
                 }
 
+                app.totalPages=response.data.totalPages
+
             }
         });
-    });
-
-
+    }
 
 </script>
 
