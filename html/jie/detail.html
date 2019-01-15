@@ -16,7 +16,7 @@
 <div id="app">
     <div class="fly-header layui-bg-black">
       <div class="layui-container">
-        <a class="fly-logo" href="../index.html">
+        <a class="fly-logo" href="../../index.html">
           <img src="../../res/images/logo.png">
         </a>
 
@@ -53,7 +53,7 @@
       <div class="layui-row layui-col-space15">
         <div class="layui-col-md8 content detail">
           <div class="fly-panel detail-box">
-            <h1>关于山湖城网络社区的公告与须知</h1>
+            <h1>{{detail.title}}</h1>
 
             <div class="detail-about">
               <a class="fly-avatar" href="../user/home.html">
@@ -61,29 +61,19 @@
               </a>
               <div class="fly-detail-user">
                 <a href="../user/home.html" class="fly-link">
-                  <cite>管理员</cite>
+                  <cite>{{detail.buildingInfo}}</cite>
 
                 </a>
-                <span>2019-01-01</span>
+                <span>{{detail.createTime}}</span>
               </div>
 
             </div>
-            <div class="detail-body photos">
-              <p>
-              <p>  1、该站点由山湖城热心居民友情提供，旨在为大家提供一个分享资源的平台，邻居们可以把自己使用过的优质服务资源（包括但不限于家装、家政等）在本平台分享；或者有这方面的需求，也可以在本平台发帖提问。</p>
-              <p>  2、由于资金限制，目前暂无法对发帖的邻居进行有效认证，故不保证在本站点发布的信息100%准确无误，至于信息的真假烦请邻居自行甄别，对此造成的不便，深表歉意。</br></p>
-              <p>  3、为了保证分享资源的真实性，在发帖时房号是必选项，如果您担心个人房屋信息泄露，请勿发帖。</p>
-              <p>  4、请邻居理性发帖，遵守中国法律法规，勿在本站点发布中国法律不允许的内容（包括但不限于攻击性言论、反动性言论、煽动性言论、侮辱谩骂性言论），由此产生的一切法律后果由发帖人负责！！！
-                本站点在发现以上不适宜内容时会第一时间删除，欢迎广大邻居举报监督，共同维护一个干净的网络社区。举报邮箱：shanhucheng@gmail.com</p>
+            <div class="detail-body photos" >
 
-
-              </p>
-              <p>2019-01-02</p>
-
-
+              <div v-html="detail.content"></div>
 
               <p>
-                <img src="https://i.loli.net/2018/11/10/5be6e4c85b068.jpg" alt="最美山湖">
+                <img v-bind:src="img.content" v-for="img in detail.picList">
               </p>
             </div>
           </div>
@@ -122,6 +112,32 @@
         });
         */
     });
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+           detail:{
+               picList:[]
+           }
+
+        }
+    })
+
+        layui.use(['jquery'], function(){
+            let   $= layui.jquery;
+            $.ajax({
+                url: "http://localhost:8888/info/get/6b139915-444f-493c-afd3-21095395ce97",
+                type:'get',
+                contentType:'application/json',
+                cache: false,
+                success: function(response){
+                       vm.detail=response.data;
+                }});
+
+        });
 
 </script>
 

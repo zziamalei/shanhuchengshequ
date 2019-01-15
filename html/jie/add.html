@@ -14,7 +14,7 @@
 <div id="app">
 <div class="fly-header layui-bg-black" >
   <div class="layui-container">
-    <a class="fly-logo" href="../index.html">
+    <a class="fly-logo" href="../../index.html">
       <img src="../../res/images/logo.png" alt="layui">
     </a>
     <ul class="layui-nav fly-nav layui-hide-xs">
@@ -115,7 +115,7 @@
                   <div class="layui-input-block">
                     <select lay-verify="required" v-model="formData.no"    lay-filter="no">
                       <option></option>
-                      <option v-bind:value="tag" v-for="tag in 4"> 0{{tag}}</option>
+                      <option v-bind:value="'0'+tag" v-for="tag in 4"> 0{{tag}}</option>
                     </select>
                   </div>
                 </div>
@@ -269,7 +269,7 @@
                                 success: function(response){
 
                                     if(response.code==0){
-                                        window.location.href='../index.html';
+                                        window.location.href='../../index.html';
                                     }
 
                                 }
