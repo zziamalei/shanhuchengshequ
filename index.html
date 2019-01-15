@@ -113,17 +113,17 @@
             </a>
             <h2>
               <a class="layui-badge">{{item.tag}}</a>
-              <a href="html/jie/detail.html">{{item.title}}</a>
+              <a v-bind:href="'html/jie/detail.html?id='+item.id">{{item.title}}</a>
             </h2>
             <div class="fly-list-info">
-              <a href="html/user/home.html" link>
-                <cite>热心邻居</cite>
+              <a href="#" link>
+                <cite>{{item.buildingInfo}}</cite>
                 <!--
                 <i class="iconfont icon-renzheng" title="认证信息：XXX"></i>
                 <i class="layui-badge fly-badge-vip">VIP3</i>
                 -->
               </a>
-              <span>{{item.createTime}}</span>
+              <span>{{item.createTime|formatDate}}</span>
               
              <!-- <span class="fly-list-kiss layui-hide-xs" title="阅读数"><i class="iconfont icon-kiss"></i> 60</span>-->
               <!--<span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>-->
@@ -198,7 +198,7 @@
         <h3 class="fly-panel-title">友情链接</h3>
         <dl class="fly-panel-main">
           <dd><a href="http://www.shanhucheng.cn/" target="_blank">山湖城</a><dd>
-          <dd><a href="mailto:xianxin@layui-inc.com?subject=%E7%94%B3%E8%AF%B7Fly%E7%A4%BE%E5%8C%BA%E5%8F%8B%E9%93%BE" class="fly-link">申请友链</a><dd>
+          <dd><a href="mailto:shanhucheng@gmail.com?subject=申请友链" class="fly-link">申请友链</a><dd>
         </dl>
       </div>
 
@@ -245,6 +245,29 @@ layui.config({
             type:'',
             page:1,
             totalPages:0
+        },
+        filters:{
+
+            formatDate:function(item){
+
+                let date=new Date(item)
+                let fmt='yyyy-MM-dd hh:mm:ss';
+                var o = {
+                    "M+" : date.getMonth()+1,                 //月份
+                    "d+" : date.getDate(),                    //日
+                    "h+" : date.getHours(),                   //小时
+                    "m+" : date.getMinutes(),                 //分
+                    "s+" : date.getSeconds(),                 //秒
+                    "q+" : Math.floor((date.getMonth()+3)/3), //季度
+                    "S"  : date.getMilliseconds()             //毫秒
+                };
+                if(/(y+)/.test(fmt))
+                    fmt=fmt.replace(RegExp.$1, (date.getFullYear()+"").substr(4 - RegExp.$1.length));
+                for(var k in o)
+                    if(new RegExp("("+ k +")").test(fmt))
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                return fmt;
+            }
         }
     })
 
