@@ -1,4 +1,5 @@
-let apiPath='http://localhost:8888';
+let apiPath='http://193.112.82.47:8888';
+// let apiPath='http://localhost:8888';
 
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
