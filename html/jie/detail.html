@@ -115,6 +115,8 @@
 
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script src="../../js/common.js"></script>
 <script>
     let vm = new Vue({
         el: '#app',
@@ -129,7 +131,7 @@
         layui.use(['jquery'], function(){
             let   $= layui.jquery;
             $.ajax({
-                url: "http://localhost:8888/info/get/6b139915-444f-493c-afd3-21095395ce97",
+                url: apiPath+"/info/get/6b139915-444f-493c-afd3-21095395ce97",
                 type:'get',
                 contentType:'application/json',
                 cache: false,

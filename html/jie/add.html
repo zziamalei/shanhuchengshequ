@@ -178,7 +178,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <!-- 生产环境版本，优化了尺寸和速度 -->
 <!--<script src="https://cdn.jsdelivr.net/npm/vue"></script>-->
-
+<script src="../../js/common.js"></script>
 <script>
 
     let vm = new Vue({
@@ -200,7 +200,7 @@
 
 
         $.ajax({
-            url: "http://localhost:8888/info/tag",
+            url: apiPath+"/info/tag",
             type:'get',
             contentType:'application/json',
             cache: false,
@@ -261,7 +261,7 @@
                             console.log(JSON.stringify(vm.formData));
 
                             $.ajax({
-                                url: "http://localhost:8888/info/save",
+                                url: apiPath+"/info/save",
                                 type:'post',
                                 data:JSON.stringify(vm.formData),
                                 contentType: "application/json; charset=utf-8",
