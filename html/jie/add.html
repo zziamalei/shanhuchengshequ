@@ -185,7 +185,7 @@
         el: '#app',
         data: {
             topicList: [],
-            tagList:[],
+            tagList:tagList,
             buildingInfo:{},
             formData:{communityInfo:{}, picList:[]},
 
@@ -199,92 +199,74 @@
         $('#fixBar01').hide();
 
 
-        $.ajax({
-            url: apiPath+"/info/tag",
-            type:'get',
-            contentType:'application/json',
-            cache: false,
-            success: function(response){
-                if(response.data.length>0){
-                    $(response.data).each(function (index,e) {
-                        console.log(JSON.stringify(e));
-                        vm.tagList.push(e);
-                    });
+        layui.use(['upload','form','layedit'], function(){
 
-                    layui.use(['upload','form','layedit'], function(){
-
-                        let form = layui.form;
-                        let layedit = layui.layedit;
-                        let upload = layui.upload;
+            let form = layui.form;
+            let layedit = layui.layedit;
+            let upload = layui.upload;
 
 
-                        //执行实例
-                        var uploadInst = upload.render({
-                            elem: '#test1' //绑定元素
-                            ,url: 'https://sm.ms/api/upload?inajax=1&ssl=1' //上传接口
-                            ,field:'smfile'
-                            ,size: 20000
-                            ,type:'post'
-                            ,done: function(res){
-                                //上传完毕回调
-                                console.log(JSON.stringify(res));
-                                if(res.code=='success'){
-                                    vm.formData.picList.push({content:res.data.url})
-                                }
-                            }
-                            ,error: function(){
-                                //请求异常回调
-                            }
-                        });
-
-                       let editIndex= layedit.build('demo',{ tool: ['left', 'center', 'right', '|', 'face']}); //建立编辑器
-
-
-
-
-                        form.on('select(type)', function(data){  vm.formData.communityInfo.type=data.value;});
-                        form.on('select(tagType)', function(data){  vm.formData.communityInfo.tagType=data.value;});
-                        form.on('select(building)', function(data){  vm.formData.building=data.value;});
-                        form.on('select(entrance)', function(data){  vm.formData.entrance=data.value;});
-                        form.on('select(floor)', function(data){  vm.formData.floor=data.value;});
-                        form.on('select(no)', function(data){  vm.formData.no=data.value;});
-
-
-
-                        //监听提交
-                        form.on('submit(demo1)', function(data){
-                            // layer.alert(JSON.stringify(data.field), {
-                            //     title: '最终的提交信息'
-                            // });
-
-                            vm.formData.communityInfo.content= layedit.getContent(editIndex);
-                            console.log(JSON.stringify(vm.formData));
-
-                            $.ajax({
-                                url: apiPath+"/info/save",
-                                type:'post',
-                                data:JSON.stringify(vm.formData),
-                                contentType: "application/json; charset=utf-8",
-                                cache: false,
-                                success: function(response){
-
-                                    if(response.code==0){
-                                        window.location.href='../../index.html';
-                                    }
-
-                                }
-                            });
-
-                            return false;
-                        });
-
-
-                    });
-
-
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,url: 'https://sm.ms/api/upload?inajax=1&ssl=1' //上传接口
+                ,field:'smfile'
+                ,size: 20000
+                ,type:'post'
+                ,done: function(res){
+                    //上传完毕回调
+                    console.log(JSON.stringify(res));
+                    if(res.code=='success'){
+                        vm.formData.picList.push({content:res.data.url})
+                    }
                 }
+                ,error: function(){
+                    //请求异常回调
+                }
+            });
 
-            }
+            let editIndex= layedit.build('demo',{ tool: ['left', 'center', 'right', '|', 'face']}); //建立编辑器
+
+
+
+
+            form.on('select(type)', function(data){  vm.formData.communityInfo.type=data.value;});
+            form.on('select(tagType)', function(data){  vm.formData.communityInfo.tagType=data.value;});
+            form.on('select(building)', function(data){  vm.formData.building=data.value;});
+            form.on('select(entrance)', function(data){  vm.formData.entrance=data.value;});
+            form.on('select(floor)', function(data){  vm.formData.floor=data.value;});
+            form.on('select(no)', function(data){  vm.formData.no=data.value;});
+
+
+
+            //监听提交
+            form.on('submit(demo1)', function(data){
+                // layer.alert(JSON.stringify(data.field), {
+                //     title: '最终的提交信息'
+                // });
+
+                vm.formData.communityInfo.content= layedit.getContent(editIndex);
+                console.log(JSON.stringify(vm.formData));
+
+                $.ajax({
+                    url: apiPath+"/info/save",
+                    type:'post',
+                    data:JSON.stringify(vm.formData),
+                    contentType: "application/json; charset=utf-8",
+                    cache: false,
+                    success: function(response){
+
+                        if(response.code==0){
+                            window.location.href='../../index.html';
+                        }
+
+                    }
+                });
+
+                return false;
+            });
+
+
         });
 
 
